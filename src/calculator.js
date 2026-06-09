@@ -2,10 +2,13 @@
  * Node.js CLI Calculator
  *
  * Supported operations:
- *   + : Addition
- *   - : Subtraction
- *   * : Multiplication
- *   / : Division
+ *   +    : Addition
+ *   -    : Subtraction
+ *   *    : Multiplication
+ *   /    : Division
+ *   %    : Modulo (remainder)
+ *   **   : Exponentiation (power)
+ *   sqrt : Square root
  */
 
 const readline = require("readline");
@@ -42,6 +45,27 @@ function divide(a, b) {
   return a / b;
 }
 
+// Modulo: returns the remainder of a divided by b
+function modulo(a, b) {
+  if (b === 0) {
+    throw new Error("Cannot perform modulo by zero");
+  }
+  return a % b;
+}
+
+// Exponentiation: returns base raised to the exponent
+function power(base, exponent) {
+  return Math.pow(base, exponent);
+}
+
+// Square root: returns the square root of n
+function squareRoot(n) {
+  if (n < 0) {
+    throw new Error("Cannot calculate square root of a negative number");
+  }
+  return Math.sqrt(n);
+}
+
 function calculate(num1, operator, num2) {
   switch (operator) {
     case "+":
@@ -52,6 +76,12 @@ function calculate(num1, operator, num2) {
       return multiply(num1, num2);
     case "/":
       return divide(num1, num2);
+    case "%":
+      return modulo(num1, num2);
+    case "**":
+      return power(num1, num2);
+    case "sqrt":
+      return squareRoot(num1);
     default:
       throw new Error(`Invalid operator: ${operator}. Use +, -, *, or /`);
   }
@@ -92,4 +122,4 @@ if (require.main === module) {
   main();
 }
 
-module.exports = { add, subtract, multiply, divide, calculate };
+module.exports = { add, subtract, multiply, divide, modulo, power, squareRoot, calculate };
